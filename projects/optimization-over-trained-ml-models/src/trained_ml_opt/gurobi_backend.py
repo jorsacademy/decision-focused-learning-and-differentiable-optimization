@@ -14,8 +14,8 @@ def optimize_with_gurobi_ml(predictor: Any, problem: BoxBudgetProblem) -> Optimi
     """Maximize any predictor supported by gurobi-machinelearning."""
 
     try:
-        import gurobipy as gp
         from gurobi_ml import add_predictor_constr
+        import gurobipy as gp
     except ImportError as exc:  # pragma: no cover
         raise RuntimeError(
             "Install the optional 'gurobi' dependencies and configure a valid Gurobi license"
