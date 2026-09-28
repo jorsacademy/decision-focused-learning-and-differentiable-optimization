@@ -19,6 +19,14 @@ This repository is part of a broader set of independent projects connecting pred
 | `differentiable-optimization-portfolio` | Differentiable convex optimization for long-only mean-variance portfolio decisions | Applied convex-layer case study |
 | `differentiable-black-box-supplier-selection-pytorch` | Gradient-based learning around a discrete/black-box downstream optimization problem | Black-box differentiation case study |
 
+## Optimization over trained predictors
+
+| Repository | Main focus | Role in the series |
+|---|---|---|
+| `optimization-over-trained-ml-models` | Translate frozen trained predictors into LP/MILP constraints and optimize over their inputs | ML-to-optimization embedding foundation |
+
+This direction is complementary to DFL: the predictor is fixed before the optimization model is built. The initial implementation includes native exact embeddings for linear regression and a regression tree, plus an optional Gurobi Machine Learning adapter.
+
 ## Inverse and uncertainty-aware decision learning
 
 | Repository | Main focus | Relationship |
@@ -41,9 +49,10 @@ The repositories are therefore related but methodologically distinct.
 3. `differentiable-optimization-pytorch`
 4. `differentiable-optimization-portfolio`
 5. `differentiable-black-box-supplier-selection-pytorch`
-6. `contextual-optimization-newsvendor`
-7. `distributionally-robust-decision-focused-learning`
-8. `inverse-optimization-shortest-path`
-9. `inverse-optimization-industrial-decisions`
+6. `optimization-over-trained-ml-models`
+7. `contextual-optimization-newsvendor`
+8. `distributionally-robust-decision-focused-learning`
+9. `inverse-optimization-shortest-path`
+10. `inverse-optimization-industrial-decisions`
 
 The ordering is pedagogical rather than a ranking of methods.
