@@ -31,7 +31,8 @@ def train_model(
     if method == "mse":
         loss_fn = mse_loss
     else:
-        loss_fn = lambda pred, true: spo_plus_loss(pred, true, k)
+        def loss_fn(pred: Tensor, true: Tensor) -> Tensor:
+            return spo_plus_loss(pred, true, k)
 
     history: list[float] = []
     model.train()
