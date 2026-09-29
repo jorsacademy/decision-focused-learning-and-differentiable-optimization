@@ -18,6 +18,7 @@ This repository is part of a broader set of independent projects connecting pred
 | `differentiable-optimization-pytorch` | Differentiating through quadratic optimization, including a transparent PyTorch linear-solve layer and constrained cvxpylayers example | Tutorial/foundational differentiable optimization |
 | `differentiable-optimization-portfolio` | Differentiable convex optimization for long-only mean-variance portfolio decisions | Applied convex-layer case study |
 | `differentiable-black-box-supplier-selection-pytorch` | Gradient-based learning around a discrete/black-box downstream optimization problem | Black-box differentiation case study |
+| `differentiable-mixed-integer-optimization` | Training through an explicitly mixed-integer downstream decision layer using relaxation, perturbation, and MIP-as-layer style signals | Planned discrete differentiable-optimization benchmark |
 
 ## Inverse and uncertainty-aware decision learning
 
@@ -30,7 +31,7 @@ This repository is part of a broader set of independent projects connecting pred
 
 ## Why these repositories remain separate
 
-SPO+ does not require differentiating through the optimizer in the same way as a differentiable convex layer. Inverse optimization reverses the direction of the problem by inferring objective parameters from decisions. Contextual optimization may learn a decision rule directly. Distributionally robust and conformal approaches focus on uncertainty sets or ambiguity rather than only end-to-end prediction loss.
+SPO+ does not require differentiating through the optimizer in the same way as a differentiable convex layer. The mixed-integer layer project is separate from the convex-layer projects because integrality makes the exact solution map discrete and requires different gradient surrogates or estimators. Inverse optimization reverses the direction of the problem by inferring objective parameters from decisions. Contextual optimization may learn a decision rule directly. Distributionally robust and conformal approaches focus on uncertainty sets or ambiguity rather than only end-to-end prediction loss.
 
 The repositories are therefore related but methodologically distinct.
 
@@ -41,9 +42,10 @@ The repositories are therefore related but methodologically distinct.
 3. `differentiable-optimization-pytorch`
 4. `differentiable-optimization-portfolio`
 5. `differentiable-black-box-supplier-selection-pytorch`
-6. `contextual-optimization-newsvendor`
-7. `distributionally-robust-decision-focused-learning`
-8. `inverse-optimization-shortest-path`
-9. `inverse-optimization-industrial-decisions`
+6. `differentiable-mixed-integer-optimization` *(planned)*
+7. `contextual-optimization-newsvendor`
+8. `distributionally-robust-decision-focused-learning`
+9. `inverse-optimization-shortest-path`
+10. `inverse-optimization-industrial-decisions`
 
 The ordering is pedagogical rather than a ranking of methods.
