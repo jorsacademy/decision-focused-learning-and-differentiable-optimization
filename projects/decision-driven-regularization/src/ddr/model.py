@@ -46,7 +46,7 @@ def fit_ddr(
         decision = asymmetric_cost(pred, target, underage, overage)
         return alpha * mse + (1.0 - alpha) * decision + l2 * float(w @ w)
 
-    result = minimize(objective, np.asarray(start), method="BFGS")
+    result = minimize(objective, np.asarray(start), method="Powell")
     if not result.success:
         raise RuntimeError(result.message)
     return DDRModel(np.asarray(result.x, dtype=float))
