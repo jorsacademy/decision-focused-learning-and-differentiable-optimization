@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 from numpy.typing import NDArray
 from scipy.optimize import Bounds, LinearConstraint, milp
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
@@ -183,6 +184,110 @@ def optimize_tree_regressor(
     if not np.isclose(predictor_value, embedded_value, atol=1e-6, rtol=1e-6):
         raise RuntimeError(
             "embedded tree prediction disagrees with sklearn at the optimizer solution: "
+            f"embedded={embedded_value}, sklearn={predictor_value}"
+        )
+
+    return OptimizationResult(
+        x=x,
+        predicted_value=predictor_value,
+        solver_objective=embedded_value,
+        status=int(result.status),
+        message=str(result.message),
+    )
+
+
+
+def optimize_random_forest_regressor(
+    model: RandomForestRegressor,
+    problem: BoxBudgetProblem,
+    *,
+    epsilon: float = 1e-7,
+) -> OptimizationResult:
+    """Maximize a fitted random-forest regressor with an exact ensemble MILP.
+
+    Each constituent tree selects exactly one feasible leaf. The shared decision vector
+    must lie in the selected leaf region of every tree simultaneously. The objective is
+    the arithmetic mean of the selected leaf predictions, matching sklearn's forest
+    prediction rule.
+    """
+
+    if epsilon <= 0.0:
+        raise ValueError("epsilon must be positive")
+    if len(model.estimators_) < 1:
+        raise ValueError("random forest must contain at least one fitted tree")
+    _validate_predictor_dimension(problem.n_features, int(model.n_features_in_))
+
+    regions = [_leaf_regions(tree, problem, epsilon) for tree in model.estimators_]
+    n = problem.n_features
+    offsets: list[tuple[int, int]] = []
+    cursor = n
+    for _, _, values in regions:
+        offsets.append((cursor, cursor + values.size))
+        cursor += values.size
+    total_vars = cursor
+
+    c = np.zeros(total_vars, dtype=float)
+    tree_weight = 1.0 / len(regions)
+    for (_, _, values), (start, end) in zip(regions, offsets, strict=True):
+        c[start:end] = -tree_weight * values
+
+    integrality = np.zeros(total_vars, dtype=int)
+    lower = np.concatenate([problem.lower, np.zeros(total_vars - n)])
+    upper = np.concatenate([problem.upper, np.ones(total_vars - n)])
+    integrality[n:] = 1
+
+    rows: list[np.ndarray] = []
+    row_lb: list[float] = []
+    row_ub: list[float] = []
+
+    budget_row = np.zeros(total_vars)
+    budget_row[:n] = problem.budget_weights
+    rows.append(budget_row)
+    row_lb.append(-np.inf)
+    row_ub.append(problem.budget)
+
+    for (leaf_lower, leaf_upper, _), (start, end) in zip(regions, offsets, strict=True):
+        one_leaf = np.zeros(total_vars)
+        one_leaf[start:end] = 1.0
+        rows.append(one_leaf)
+        row_lb.append(1.0)
+        row_ub.append(1.0)
+
+        for j in range(n):
+            upper_row = np.zeros(total_vars)
+            upper_row[j] = 1.0
+            upper_row[start:end] = -leaf_upper[:, j]
+            rows.append(upper_row)
+            row_lb.append(-np.inf)
+            row_ub.append(0.0)
+
+            lower_row = np.zeros(total_vars)
+            lower_row[j] = -1.0
+            lower_row[start:end] = leaf_lower[:, j]
+            rows.append(lower_row)
+            row_lb.append(-np.inf)
+            row_ub.append(0.0)
+
+    result = milp(
+        c=c,
+        integrality=integrality,
+        bounds=Bounds(lower, upper),
+        constraints=LinearConstraint(
+            np.stack(rows),
+            lb=np.asarray(row_lb, dtype=float),
+            ub=np.asarray(row_ub, dtype=float),
+        ),
+        options={"disp": False},
+    )
+    if not result.success or result.x is None:
+        raise RuntimeError(f"random-forest MILP solve failed: {result.message}")
+
+    x = np.asarray(result.x[:n], dtype=float)
+    embedded_value = float(-result.fun)
+    predictor_value = float(model.predict(x.reshape(1, -1))[0])
+    if not np.isclose(predictor_value, embedded_value, atol=1e-6, rtol=1e-6):
+        raise RuntimeError(
+            "embedded forest prediction disagrees with sklearn at the optimizer solution: "
             f"embedded={embedded_value}, sklearn={predictor_value}"
         )
 
