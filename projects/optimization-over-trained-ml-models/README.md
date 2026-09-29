@@ -103,13 +103,14 @@ Implemented in v0.1:
 
 - single-output scikit-learn linear regression;
 - single-output scikit-learn decision-tree regression;
+- scikit-learn RandomForestRegressor with exact simultaneous leaf-selection MILP;
 - continuous decisions with box bounds and one linear resource budget;
 - optional generic Gurobi ML adapter;
 - embedding-fidelity and optimization tests.
 
 Next extensions:
 
-- Random Forest / Gradient Boosting / XGBoost formulations;
+- Gradient Boosting / XGBoost formulations;
 - ReLU MLP embedding;
 - OMLT + Pyomo / ONNX path;
 - multiple operational constraints;
