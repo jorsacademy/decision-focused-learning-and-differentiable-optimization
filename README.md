@@ -12,6 +12,7 @@ This repository is the primary umbrella repository for this Jors Academy researc
 - [`differentiable-optimization-pytorch`](projects/differentiable-optimization-pytorch/)
 - [`distributionally-robust-decision-focused-learning`](projects/distributionally-robust-decision-focused-learning/)
 - [`predict-then-optimize-production-planning-spo-plus-pytorch`](projects/predict-then-optimize-production-planning-spo-plus-pytorch/)
+- [`optimization-over-trained-ml-models`](projects/optimization-over-trained-ml-models/)
 
 Each consolidated project keeps its own files and a `SOURCE_REPOSITORY.md` provenance record. The snapshot preserves the source repository's default-branch files at consolidation time; repository-level history and metadata remain separate from the snapshot.
 <!-- portfolio-umbrella:end -->
