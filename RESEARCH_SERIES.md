@@ -11,6 +11,16 @@ This repository is part of a broader set of independent projects connecting pred
 | `distributionally-robust-decision-focused-learning` | Decision-focused learning under distributional ambiguity | Robust DFL extension |
 | `contextual-optimization-newsvendor` | Directly learning context-dependent operational decisions | Contextual optimization |
 
+## Contextual and prescriptive frontier
+
+| Repository | Main focus | Role in the series |
+|---|---|---|
+| `integrated-conditional-estimation-optimization` | Select conditional scenario estimation by downstream newsvendor cost | Estimation-to-decision integration |
+| `decision-driven-regularization` | Blend prediction fit with asymmetric downstream decision loss | Decision-aware model regularization |
+| `stochastic-optimization-forests` | Random-forest proximity weights feeding a stochastic optimizer | Nonparametric contextual stochastic optimization |
+
+These are independent, transparent benchmarks inspired by the 2025–2026 research directions summarized in the portfolio review. They do not claim byte-for-byte reproduction of individual papers.
+
 ## Differentiable optimization
 
 | Repository | Main focus | Role in the series |
