@@ -17,6 +17,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
 gurobi = ["gurobipy>=11", "gurobi-machinelearning>=1.5"]
+omlt = ["pyomo>=6.8", "omlt>=1.2", "onnx>=1.16"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
