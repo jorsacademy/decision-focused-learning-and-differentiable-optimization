@@ -8,12 +8,13 @@ This repository is the primary umbrella repository for this Jors Academy researc
 ### Included projects
 
 - [`differentiable-black-box-supplier-selection-pytorch`](projects/differentiable-black-box-supplier-selection-pytorch/)
+- [`differentiable-mixed-integer-optimization`](projects/differentiable-mixed-integer-optimization/) — planned research scaffold
 - [`differentiable-optimization-portfolio`](projects/differentiable-optimization-portfolio/)
 - [`differentiable-optimization-pytorch`](projects/differentiable-optimization-pytorch/)
 - [`distributionally-robust-decision-focused-learning`](projects/distributionally-robust-decision-focused-learning/)
 - [`predict-then-optimize-production-planning-spo-plus-pytorch`](projects/predict-then-optimize-production-planning-spo-plus-pytorch/)
 
-Each consolidated project keeps its own files and a `SOURCE_REPOSITORY.md` provenance record. The snapshot preserves the source repository's default-branch files at consolidation time; repository-level history and metadata remain separate from the snapshot.
+Recovered consolidated projects keep their own files and `SOURCE_REPOSITORY.md` provenance records. New research scaffolds developed directly in this monorepo are marked explicitly as planned until an implementation and benchmark exist.
 <!-- portfolio-umbrella:end -->
 
 A compact research-oriented implementation of **Smart Predict-then-Optimize (SPO)** and the **SPO+** surrogate for downstream combinatorial optimization.
