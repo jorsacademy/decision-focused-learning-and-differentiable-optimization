@@ -5,10 +5,15 @@ from __future__ import annotations
 from dataclasses import asdict
 
 import numpy as np
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
-from .embedding import optimize_linear_regressor, optimize_tree_regressor
+from .embedding import (
+    optimize_linear_regressor,
+    optimize_random_forest_regressor,
+    optimize_tree_regressor,
+)
 from .problem import BoxBudgetProblem
 
 
@@ -35,6 +40,12 @@ def run_demo(seed: int = 7) -> dict[str, object]:
     tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=20, random_state=seed).fit(
         x_train, y_train
     )
+    forest = RandomForestRegressor(
+        n_estimators=5,
+        max_depth=4,
+        min_samples_leaf=20,
+        random_state=seed,
+    ).fit(x_train, y_train)
 
     problem = BoxBudgetProblem.from_arrays(
         lower=[0.0, 0.0, 0.0],
@@ -46,4 +57,5 @@ def run_demo(seed: int = 7) -> dict[str, object]:
     return {
         "linear": asdict(optimize_linear_regressor(linear, problem)),
         "tree": asdict(optimize_tree_regressor(tree, problem)),
+        "random_forest": asdict(optimize_random_forest_regressor(forest, problem)),
     }
