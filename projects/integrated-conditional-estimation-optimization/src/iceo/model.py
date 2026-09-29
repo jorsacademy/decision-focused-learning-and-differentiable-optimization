@@ -57,7 +57,7 @@ def fit_iceo(
         q = model.decision(matrix, underage, overage)
         return newsvendor_cost(q, y, underage, overage) + l2 * float(weights @ weights)
 
-    result = minimize(objective, start, method="BFGS")
+    result = minimize(objective, start, method="Powell")
     if not result.success:
         raise RuntimeError(result.message)
     return LinearConditionalNormal(np.asarray(result.x, dtype=float), float(sigma))
