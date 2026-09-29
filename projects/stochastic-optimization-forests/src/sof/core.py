@@ -22,7 +22,7 @@ class StochasticOptimizationForest:
     min_samples_leaf:int=10
     random_state:int=0
 
-    def fit(self,x:ArrayLike,y:ArrayLike)->"StochasticOptimizationForest":
+    def fit(self,x:ArrayLike,y:ArrayLike)-> StochasticOptimizationForest:
         self.x_=np.asarray(x,dtype=float)
         self.y_=np.asarray(y,dtype=float)
         if self.x_.ndim!=2 or self.y_.shape!=(self.x_.shape[0],):
