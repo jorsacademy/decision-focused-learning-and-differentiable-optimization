@@ -13,6 +13,9 @@ This repository is the primary umbrella repository for this Jors Academy researc
 - [`differentiable-optimization-pytorch`](projects/differentiable-optimization-pytorch/)
 - [`distributionally-robust-decision-focused-learning`](projects/distributionally-robust-decision-focused-learning/)
 - [`predict-then-optimize-production-planning-spo-plus-pytorch`](projects/predict-then-optimize-production-planning-spo-plus-pytorch/)
+- [`integrated-conditional-estimation-optimization`](projects/integrated-conditional-estimation-optimization/)
+- [`decision-driven-regularization`](projects/decision-driven-regularization/)
+- [`stochastic-optimization-forests`](projects/stochastic-optimization-forests/)
 
 Recovered consolidated projects keep their own files and `SOURCE_REPOSITORY.md` provenance records. New research scaffolds developed directly in this monorepo are marked explicitly as planned until an implementation and benchmark exist.
 <!-- portfolio-umbrella:end -->

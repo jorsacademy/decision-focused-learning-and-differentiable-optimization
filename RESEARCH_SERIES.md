@@ -49,3 +49,13 @@ The repositories are therefore related but methodologically distinct.
 10. `inverse-optimization-industrial-decisions`
 
 The ordering is pedagogical rather than a ranking of methods.
+
+## Contextual optimization frontier
+
+| Repository | Main focus | Role |
+|---|---|---|
+| `integrated-conditional-estimation-optimization` | Fit conditional uncertainty models through downstream stochastic decision quality | Integrated estimation-optimization |
+| `decision-driven-regularization` | Blend predictive accuracy with downstream operational loss | 2026 learning/optimization regularization |
+| `stochastic-optimization-forests` | Optimization-aware tree splitting for contextual stochastic decisions | Nonparametric prescriptive learning |
+
+These projects extend the series beyond SPO+/differentiable layers into conditional-distribution learning and optimization-aware nonparametric policies.
